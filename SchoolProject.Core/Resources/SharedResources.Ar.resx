@@ -126,6 +126,9 @@
   <data name="Deleted" xml:space="preserve">
     <value>تم الحذف بنجاح</value>
   </data>
+  <data name="IsNotExist" xml:space="preserve">
+    <value>غير موجود</value>
+  </data>
   <data name="IsAlreadyExist" xml:space="preserve">
     <value>موجود بالفعل</value>
   </data>

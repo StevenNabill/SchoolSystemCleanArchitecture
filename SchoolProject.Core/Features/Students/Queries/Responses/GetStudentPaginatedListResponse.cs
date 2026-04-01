@@ -2,13 +2,6 @@
 {
     public class GetStudentPaginatedListResponse
     {
-        public GetStudentPaginatedListResponse(int studID, string? name, string? address, string? departmentName)
-        {
-            StudID = studID;
-            Name = name;
-            Address = address;
-            DepartmentName = departmentName;
-        }
 
         public int StudID { get; set; }
         public string? Name { get; set; }

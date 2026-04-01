@@ -14,5 +14,6 @@
         public const string NotEmpty = "NotEmpty";
         public const string MaxLength100 = "MaxLength100";
         public const string IsAlreadyExist = "IsAlreadyExist";
+        public const string IsNotExist = "IsNotExist";
     }
 }

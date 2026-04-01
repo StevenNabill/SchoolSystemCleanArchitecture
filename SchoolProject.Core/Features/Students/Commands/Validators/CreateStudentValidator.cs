@@ -11,15 +11,17 @@ namespace SchoolProject.Core.Features.Students.Commands.Validators
         #region Fields
         private readonly IStudentService _studentService;
         private readonly IStringLocalizer<SharedResources> _localizer;
+        private readonly IDepartmentService _departmentService;
         #endregion
 
         #region Constructors
-        public CreateStudentValidator(IStudentService studentService, IStringLocalizer<SharedResources> localizer)
+        public CreateStudentValidator(IStudentService studentService, IStringLocalizer<SharedResources> localizer, IDepartmentService departmentService)
         {
             _studentService = studentService;
             _localizer = localizer;
             ApplyValidationRules();
             ApplyCustomValidationRules();
+            _departmentService = departmentService;
         }
         #endregion
 
@@ -35,11 +37,22 @@ namespace SchoolProject.Core.Features.Students.Commands.Validators
                 .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.NotEmpty])
                 .NotNull().WithMessage(_localizer[SharedResourcesKeys.Required])
                 .MaximumLength(100).WithMessage(_localizer[SharedResourcesKeys.MaxLength100]);
+
+            RuleFor(x => x.DepartmentId)
+                .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.NotEmpty])
+                .NotNull().WithMessage(_localizer[SharedResourcesKeys.Required]);
         }
         public void ApplyCustomValidationRules()
         {
             RuleFor(x => x.NameEn)
                 .MustAsync(async (key, CancellationToken) => !await _studentService.IsNameExist(key)).WithMessage(_localizer[SharedResourcesKeys.IsAlreadyExist]);
+
+            RuleFor(x => x.NameAr)
+                 .MustAsync(async (key, CancellationToken) => !await _studentService.IsNameExist(key)).WithMessage(_localizer[SharedResourcesKeys.IsAlreadyExist]);
+
+            RuleFor(x => x.DepartmentId)
+                .MustAsync(async (key, cancellationToken) => await _departmentService.IsDepartmentExist(key))
+                .WithMessage(_localizer[SharedResourcesKeys.IsNotExist]);
         }
         #endregion
     }

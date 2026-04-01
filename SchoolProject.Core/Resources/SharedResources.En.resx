@@ -126,6 +126,9 @@
   <data name="Deleted" xml:space="preserve">
     <value>Deleted successfully</value>
   </data>
+  <data name="IsNotExist" xml:space="preserve">
+    <value>not exist </value>
+  </data>
   <data name="IsAlreadyExist" xml:space="preserve">
     <value>is already exist</value>
   </data>

@@ -8,6 +8,7 @@ namespace SchoolProject.Core.Mapping.StudentMapping
         {
             GetStudentListMapping();
             GetStudentByIdMapping();
+            GetStudentPaginationMapping();
             CreateStudentCommandMapping();
             EditStudentCommandMapping();
         }

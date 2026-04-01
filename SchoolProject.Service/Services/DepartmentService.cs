@@ -29,6 +29,13 @@ namespace SchoolProject.Service.Services
                                  .FirstOrDefaultAsync();
             return department;
         }
+
+        public async Task<bool> IsDepartmentExist(int id)
+        {
+            return await _departmentRepository
+                .GetTableNoTracking()
+                .AnyAsync(d => d.DID == id);
+        }
         #endregion
 
     }
