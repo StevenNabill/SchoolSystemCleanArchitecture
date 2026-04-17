@@ -20,6 +20,8 @@ builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseSqlSer
 builder.Services.AddInfrastructureDependencies();
 builder.Services.AddServiceDependencies();
 builder.Services.AddCoreDependencies();
+builder.Services.AddServiceRegisteration();
+
 #endregion
 
 
