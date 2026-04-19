@@ -168,4 +168,7 @@
   <data name="FailedToAddUser" xml:space="preserve">
     <value>Failed to add user</value>
   </data>
+  <data name="UpdateFailed" xml:space="preserve">
+    <value>Update failed</value>
+  </data>
 </root>
