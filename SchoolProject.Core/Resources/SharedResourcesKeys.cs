@@ -20,5 +20,6 @@
         public const string UserNameAlreadyExist = "UserNameAlreadyExist";
         public const string FailedToAddUser = "FailedToAddUser";
         public const string UpdateFailed = "UpdateFailed";
+        public const string DeleteFailed = "DeleteFailed";
     }
 }
