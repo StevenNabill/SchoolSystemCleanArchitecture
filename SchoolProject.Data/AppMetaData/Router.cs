@@ -26,5 +26,14 @@
             public const string EditDepartmentCommand = Prefix + "Edit";
             public const string DeleteDepartmentCommand = Prefix + "Delete" + SingleRoute;
         }
+        public static class UserRouting
+        {
+            public const string Prefix = Rule + "users/";
+            public const string GetList = Prefix + "List";
+            public const string GetById = Prefix + SingleRoute;
+            public const string Create = Prefix + "Create";
+            public const string Edit = Prefix + "Edit";
+            public const string Delete = Prefix + "Delete" + SingleRoute;
+        }
     }
 }

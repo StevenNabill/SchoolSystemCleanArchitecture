@@ -15,5 +15,9 @@
         public const string MaxLength100 = "MaxLength100";
         public const string IsAlreadyExist = "IsAlreadyExist";
         public const string IsNotExist = "IsNotExist";
+        public const string PasswordNotEqualConfirmPassword = "PasswordNotEqualConfirmPassword";
+        public const string EmailAlreadyExists = "EmailAlreadyExists";
+        public const string UserNameAlreadyExist = "UserNameAlreadyExist";
+        public const string FailedToAddUser = "FailedToAddUser";
     }
 }
