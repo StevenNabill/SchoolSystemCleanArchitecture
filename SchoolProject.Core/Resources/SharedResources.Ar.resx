@@ -156,4 +156,16 @@
   <data name="Updated" xml:space="preserve">
     <value>تم التعديل بنجاح</value>
   </data>
+  <data name="PasswordNotEqualConfirmPassword" xml:space="preserve">
+    <value>يجب ان يتطابق كلمة المرور وتاكيد كلمة المرور</value>
+  </data>
+  <data name="EmailAlreadyExists" xml:space="preserve">
+    <value>هذا الايميل موجود بالفعل </value>
+  </data>
+  <data name="UserNameAlreadyExist" xml:space="preserve">
+    <value>اسم المستخدم موجود بالفعل</value>
+  </data>
+  <data name="FailedToAddUser" xml:space="preserve">
+    <value>حدث خطا اثناء اضافة المستخدم</value>
+  </data>
 </root>
