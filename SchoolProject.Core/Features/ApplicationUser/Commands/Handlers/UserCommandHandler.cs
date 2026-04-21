@@ -15,6 +15,7 @@ namespace SchoolProject.Core.Features.ApplicationUser.Commands.Handlers
         IRequestHandler<EditUserCommand, Response<string>>,
         IRequestHandler<DeleteUserCommand, Response<string>>,
         IRequestHandler<ChangeUserPasswordCommand, Response<string>>
+        IRequestHandler<EditUserCommand, Response<string>>
     {
         #region Fields
         private readonly IMapper _mapper;
@@ -64,6 +65,7 @@ namespace SchoolProject.Core.Features.ApplicationUser.Commands.Handlers
             var isExistUserName = await _userManager.Users.AnyAsync(u => u.UserName == newUser.UserName && u.Id != newUser.Id);
             if (isExistUserName)
                 return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.UserNameAlreadyExist]);
+            var newUser = _mapper.Map(request, oldUser);
 
             var result = await _userManager.UpdateAsync(newUser);
 
