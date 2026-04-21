@@ -171,4 +171,10 @@
   <data name="UpdateFailed" xml:space="preserve">
     <value>حدث خطأ اثنائ تحديث البيانات</value>
   </data>
+  <data name="DeleteFailed" xml:space="preserve">
+    <value>حدث خطأ اثناء الحذف</value>
+  </data>
+  <data name="ChangePasswordFailed" xml:space="preserve">
+    <value>فشل تغيير كلمة المرور</value>
+  </data>
 </root>
