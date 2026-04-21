@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using SchoolProject.Core.Bases;
 using SchoolProject.Core.Features.ApplicationUser.Commands.Models;
@@ -12,7 +13,8 @@ namespace SchoolProject.Core.Features.ApplicationUser.Commands.Handlers
     public class UserCommandHandler : ResponseHandler,
         IRequestHandler<AddUserCommand, Response<string>>,
         IRequestHandler<EditUserCommand, Response<string>>,
-        IRequestHandler<DeleteUserCommand, Response<string>>
+        IRequestHandler<DeleteUserCommand, Response<string>>,
+        IRequestHandler<ChangeUserPasswordCommand, Response<string>>
     {
         #region Fields
         private readonly IMapper _mapper;
@@ -57,7 +59,11 @@ namespace SchoolProject.Core.Features.ApplicationUser.Commands.Handlers
             if (oldUser is null)
                 return NotFound<string>();
 
+
             var newUser = _mapper.Map(request, oldUser);
+            var isExistUserName = await _userManager.Users.AnyAsync(u => u.UserName == newUser.UserName && u.Id != newUser.Id);
+            if (isExistUserName)
+                return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.UserNameAlreadyExist]);
 
             var result = await _userManager.UpdateAsync(newUser);
 
@@ -80,6 +86,19 @@ namespace SchoolProject.Core.Features.ApplicationUser.Commands.Handlers
                 return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.DeleteFailed]);
 
             return Success<string>(_stringLocalizer[SharedResourcesKeys.Deleted]);
+        }
+
+        public async Task<Response<string>> Handle(ChangeUserPasswordCommand request, CancellationToken cancellationToken)
+        {
+            var user = await _userManager.FindByIdAsync(request.Id.ToString());
+            if (user is null)
+                return NotFound<string>();
+
+            var result = await _userManager.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);
+            if (!result.Succeeded)
+                return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.ChangePasswordFailed]);
+
+            return Success<string>(_stringLocalizer[SharedResourcesKeys.Success]);
         }
     }
 }

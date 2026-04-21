@@ -40,5 +40,11 @@ namespace SchoolProject.Api.Controllers
         {
             return NewResult(await Mediator.Send(new DeleteUserCommand(id)));
         }
+
+        [HttpPut(Router.UserRouting.ChangePassword)]
+        public async Task<IActionResult> Edit([FromBody] ChangeUserPasswordCommand command)
+        {
+            return NewResult(await Mediator.Send(command));
+        }
     }
 }
