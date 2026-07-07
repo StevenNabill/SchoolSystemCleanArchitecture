@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SchoolProject.Api.Base;
 using SchoolProject.Core.Features.Students.Commands.Models;
 using SchoolProject.Core.Features.Students.Queries.Models;
@@ -7,6 +8,7 @@ using SchoolProject.Data.AppMetaData;
 namespace SchoolProject.Api.Controllers
 {
     [ApiController]
+    [Authorize]
     public class StudentController : AppControllerBase
     {
         [HttpGet(Router.StudentRouting.GetStudentsList)]
@@ -15,6 +17,7 @@ namespace SchoolProject.Api.Controllers
             return NewResult(await Mediator.Send(new GetStudentsListQuery()));
         }
         [HttpGet(Router.StudentRouting.PaginatedList)]
+        [AllowAnonymous]
         public async Task<IActionResult> GetPaginatedList([FromQuery] GetStudentPaginatedListQuery query)
         {
             return Ok(await Mediator.Send(query));

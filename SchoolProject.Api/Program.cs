@@ -1,6 +1,7 @@
-using Microsoft.AspNetCore.Localization;
+﻿using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Scalar.AspNetCore;
 using SchoolProject.Core;
 using SchoolProject.Infrastructure;
 using SchoolProject.Infrastructure.Context;
@@ -13,14 +14,14 @@ var builder = WebApplication.CreateBuilder(args);
 //connect to sql server
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddOpenApi();
 builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 #region Dependency Injection
 builder.Services.AddInfrastructureDependencies();
 builder.Services.AddServiceDependencies();
 builder.Services.AddCoreDependencies();
-builder.Services.AddServiceRegisteration();
+builder.Services.AddServiceRegisteration(builder.Configuration);
 
 #endregion
 
@@ -65,8 +66,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.MapOpenApi();
+    app.MapScalarApiReference();
 }
 #region Localization Middleware
 var options = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
@@ -77,6 +78,7 @@ app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseHttpsRedirection();
 app.UseCors(cors);
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 

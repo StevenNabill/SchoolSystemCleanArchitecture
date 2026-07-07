@@ -1,0 +1,40 @@
+﻿using FluentValidation;
+using Microsoft.Extensions.Localization;
+using SchoolProject.Core.Features.Authentication.Commands.Models;
+using SchoolProject.Core.Resources;
+
+namespace SchoolProject.Core.Features.Authentication.Commands.Validators
+{
+    internal class SignInCommandValidator : AbstractValidator<SignInCommand>
+    {
+        #region Fields
+        private readonly IStringLocalizer<SharedResources> _localizer;
+
+        #endregion
+
+        #region Constructors
+        public SignInCommandValidator(IStringLocalizer<SharedResources> localizer)
+        {
+            _localizer = localizer;
+            ApplyValidationRules();
+        }
+
+        #endregion
+
+        #region Actions
+        public void ApplyValidationRules()
+        {
+
+            RuleFor(x => x.UserName)
+                .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.NotEmpty])
+                .NotNull().WithMessage(_localizer[SharedResourcesKeys.Required]);
+
+            RuleFor(x => x.Password)
+                .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.NotEmpty])
+                .NotNull().WithMessage(_localizer[SharedResourcesKeys.Required])
+                .MaximumLength(100).WithMessage(_localizer[SharedResourcesKeys.MaxLength100]);
+
+        }
+        #endregion
+    }
+}
