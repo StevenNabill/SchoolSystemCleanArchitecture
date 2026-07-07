@@ -22,5 +22,9 @@
         public const string UpdateFailed = "UpdateFailed";
         public const string DeleteFailed = "DeleteFailed";
         public const string ChangePasswordFailed = "ChangePasswordFailed";
+        public const string UserName = "UserName";
+        public const string Password = "Password";
+        public const string UserNameIsNotExist = "UserNameIsNotExist";
+        public const string SignInFailed = "SignInFailed";
     }
 }

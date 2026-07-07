@@ -17,7 +17,7 @@ namespace SchoolProject.Core
 
             var configExpression = new MapperConfigurationExpression();
 
-            configExpression.AddMaps(AppDomain.CurrentDomain.GetAssemblies());
+            configExpression.AddMaps(Assembly.GetExecutingAssembly());
 
             var loggerFactory = services.BuildServiceProvider()
                 .GetRequiredService<ILoggerFactory>();
