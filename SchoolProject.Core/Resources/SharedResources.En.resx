@@ -189,4 +189,19 @@
   <data name="SignInFailed" xml:space="preserve">
     <value>User name or password is incorrect</value>
   </data>
+  <data name="RefreshTokenIsExpired" xml:space="preserve">
+    <value>Refresh token is expired</value>
+  </data>
+  <data name="InvalidRefreshToken" xml:space="preserve">
+    <value>Invalid Refresh Token</value>
+  </data>
+  <data name="TokenIsNotExpired" xml:space="preserve">
+    <value>Token Is Not Expired</value>
+  </data>
+  <data name="InvalidAlgorithm" xml:space="preserve">
+    <value>Invalid Algorithm</value>
+  </data>
+  <data name="TokenIsExpired" xml:space="preserve">
+    <value>Token Is Expired</value>
+  </data>
 </root>

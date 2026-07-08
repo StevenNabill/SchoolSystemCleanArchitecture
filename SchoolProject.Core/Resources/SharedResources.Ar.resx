@@ -189,4 +189,19 @@
   <data name="SignInFailed" xml:space="preserve">
     <value>خطأ في اسم المستخدم او كلمة المرور</value>
   </data>
+  <data name="RefreshTokenIsExpired" xml:space="preserve">
+    <value>لقد انتهت صلاحية هذا التوكن</value>
+  </data>
+  <data name="InvalidRefreshToken" xml:space="preserve">
+    <value>التوكن غير صالحة</value>
+  </data>
+  <data name="TokenIsNotExpired" xml:space="preserve">
+    <value>لم تنتهي مدة صلاحية التوكن بعد</value>
+  </data>
+  <data name="InvalidAlgorithm" xml:space="preserve">
+    <value>خطا في الخوارزمية</value>
+  </data>
+  <data name="TokenIsExpired" xml:space="preserve">
+    <value>انتهت صلاحية التوكن</value>
+  </data>
 </root>
