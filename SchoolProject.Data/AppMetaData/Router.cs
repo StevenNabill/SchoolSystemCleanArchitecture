@@ -40,7 +40,9 @@
         public static class AuthenticationRouting
         {
             public const string Prefix = Rule + "authentication/";
-            public const string CreateStudentCommand = Prefix + "SignIn";
+            public const string SignIn = Prefix + "SignIn";
+            public const string RefreshToken = Prefix + "Refresh-Token";
+            public const string ValidateToken = Prefix + "Validate-Token";
         }
     }
 }

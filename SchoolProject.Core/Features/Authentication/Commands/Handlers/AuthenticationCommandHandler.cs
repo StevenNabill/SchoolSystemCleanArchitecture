@@ -13,7 +13,8 @@ namespace SchoolProject.Core.Features.Authentication.Commands.Handlers
 {
     public class AuthenticationCommandHandler :
         ResponseHandler,
-        IRequestHandler<SignInCommand, Response<JwtAuthResponse>>
+        IRequestHandler<SignInCommand, Response<JwtAuthResponse>>,
+        IRequestHandler<RefreshTokenCommand, Response<JwtAuthResponse>>
     {
         #region Fields
         private readonly IMapper _mapper;
@@ -56,6 +57,32 @@ namespace SchoolProject.Core.Features.Authentication.Commands.Handlers
 
             var response = await _authenticationService.GetJwtToken(user);
 
+            return Success(response);
+        }
+
+        public async Task<Response<JwtAuthResponse>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
+        {
+            var jwtToken = _authenticationService.ReadJwtToken(request.AccessToken);
+            var UserIdAndExpDate = await _authenticationService.ValidateDetails(jwtToken, request.AccessToken, request.RefreshToken);
+            switch (UserIdAndExpDate)
+            {
+                case ("InvalidAlgorithm", null):
+                    return Unauthorized<JwtAuthResponse>(_stringLocalizer[SharedResourcesKeys.InvalidAlgorithm]);
+                case ("TokenIsNotExpired", null):
+                    return Unauthorized<JwtAuthResponse>(_stringLocalizer[SharedResourcesKeys.TokenIsNotExpired]);
+                case ("InvalidRefreshToken", null):
+                    return Unauthorized<JwtAuthResponse>(_stringLocalizer[SharedResourcesKeys.InvalidRefreshToken]);
+                case ("RefreshTokenIsExpired", null):
+                    return Unauthorized<JwtAuthResponse>(_stringLocalizer[SharedResourcesKeys.RefreshTokenIsExpired]);
+                default:
+                    break;
+            }
+            var (userId, expDate) = UserIdAndExpDate;
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user is null)
+                return NotFound<JwtAuthResponse>();
+
+            var response = await _authenticationService.RefreshToken(user, request.RefreshToken, (DateTime)expDate!);
             return Success(response);
         }
         #endregion
